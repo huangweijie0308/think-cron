@@ -7,7 +7,7 @@
  */
 namespace huangweijie\cron;
 
-use huangweijie\cron\command\Handel;
+use huangweijie\cron\command\Handle;
 
 class Service extends \think\Service
 {
