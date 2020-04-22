@@ -20,7 +20,7 @@
     "extra": {
         "think": {
             "config": {
-                "cron": "src/config.php"
+                "crontab": "src/config.php"
             },
             "services": [
                 "huangweijie\\cron\\Service"
