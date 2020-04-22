@@ -13,7 +13,7 @@
     },
     "autoload": {
         "psr-4": {
-            "huangweijie\\cron\\": "src/cron",
+            "huangweijie\\cron\\": "src/cron"
         }
     },
     "license": "MIT"
