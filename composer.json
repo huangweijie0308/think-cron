@@ -16,5 +16,15 @@
             "huangweijie\\cron\\": "src/cron"
         }
     },
-    "license": "MIT"
+    "license": "MIT",
+    "extra": {
+        "think": {
+            "services": [
+                "huangweijie\\cron\\Service"
+            ],
+            "config": {
+                "crontab": "src/config.php"
+            }
+        }
+    },
 }
