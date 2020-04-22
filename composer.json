@@ -19,12 +19,12 @@
     "license": "MIT",
     "extra": {
         "think": {
+            "config": {
+                "cron": "src/config.php"
+            },
             "services": [
                 "huangweijie\\cron\\Service"
-            ],
-            "config": {
-                "crontab": "src/config.php"
-            }
+            ]
         }
-    },
+    }
 }
