@@ -66,15 +66,11 @@ class Cron extends Factory
     public function schedule(Array $tasks)
     {
         $timeList = $taskList = [];
-
         $nowTime = time();
-
         $lastTime = $nowTime - $nowTime % 60 - 60;
 
         while ((int)($nowTime - $lastTime) > 59) {
-
             $lastTime += 60;
-
             $timeList[] = array(
                 'nowTime' => $lastTime,
                 'nowNode' => explode(' ', date('i H d m w', $lastTime))
@@ -85,26 +81,19 @@ class Cron extends Factory
             return $taskList;
 
         foreach ($tasks as &$task) {
-
             $taskTimeNodes = preg_split('@\s+@', trim($task['time']));
-
             foreach ($timeList as &$timeBox) {
-
                 foreach ($taskTimeNodes as $ki => &$vi) {
 
                     $index = &$timeBox['nowNode'][$ki];
-
                     preg_match_all('@(\d+|\*)(?:-(\d+))?(?:/(\d+))?(,|$)@', $vi, $list, PREG_SET_ORDER);
 
                     foreach ($list as &$vl) {
                         if (!$vl[2]) {
                             $temp = $index == $vl[1] || $vl[1] === '*';
-
                         } else if ((int)$vl[1] > (int)$vl[2]) {
-
                             $temp = (int)$index >= (int)$vl[1] || (int)$index <= (int)$vl[2];
                         } else {
-
                             $temp = (int)$index >= (int)$vl[1] && (int)$index <= (int)$vl[2];
                         }
 
@@ -119,14 +108,11 @@ class Cron extends Factory
                 if (!empty($temp) && (int)$temp < (int)$timeBox['nowTime']) {
 
                     $task['time'] = $timeBox['nowTime'];
-
                     $taskList[] = &$task;
                 }
             }
-
             unset($task);
         }
-
         return $taskList;
     }
 }
