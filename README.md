@@ -21,15 +21,21 @@ return [
     'tasks' => [
         [
             'time' => '10,50 */3 * * *',
-            'command' => 'test'
-        ],
-        [
-            'time' => '22 */8 * * *',
-            'command' => 'queue'
+            'mode' => [
+                'command' => ['queue'],
+                'callback' => [
+                    ["app\admin\controller\JobTest:test1", 'huangweijie,huangweijie2']
+                ]
+            ]
         ],
         [
             'time' => '* * * * *',
-            'command' => 'queue'
+            'mode' => [
+                'command' => ['queue'],
+                'callback' => [
+                    ["app\admin\controller\JobTest:test1", 'huangweijie']
+                ]
+            ]
         ],
     ]
 ];
