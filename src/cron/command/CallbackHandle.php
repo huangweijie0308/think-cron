@@ -38,8 +38,15 @@ class CallbackHandle extends Command
 
         $argument = $input->getOption('argument');
 
-        if (empty($calss) || empty($action) || !is_callable([$calss, $action]))
+        if (empty($calss) || empty($action))
             return;
+
+        if (!is_callable([$calss, $action])) {
+
+            $this->app->bind($calss);
+            if (!is_callable([$calss, $action]))
+                return;
+        }
 
         $argument = empty($argument)? []: explode(',', $argument);
         $this->app->invokeMethod([$calss, $action], $argument);
