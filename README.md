@@ -31,7 +31,12 @@ return [
         [
             'time' => '* * * * *',
             'mode' => [
-                'command' => ['queue-manage:run'],
+                'command' => ['queue-manage:run']
+            ]
+        ],
+        [
+            'time' => '2,9,36 */2 * * *',
+            'mode' => [
                 'callback' => [
                     ["app\admin\controller\JobTest:test1", 'huangweijie']
                 ]
