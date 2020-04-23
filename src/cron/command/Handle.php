@@ -9,6 +9,7 @@ use huangweijie\Cron;
 class Handle extends Command
 {
     protected $cron;
+    protected $able = true;
 
     public function __construct(Cron $cron)
     {
@@ -21,10 +22,19 @@ class Handle extends Command
         $this->setName('crontab:run')->setDescription('crontab run');
     }
 
+    protected function initialize(Input $input, Output $output)
+    {
+        if (strtoupper(PHP_OS ) == 'LINUX')
+            return;
+
+        $this->able = false;
+        $this->output->writeln('[Warning]:Windows is not supported');
+    }
+
     protected function execute(Input $input, Output $output)
     {
-        if (!$this->initEnv())
-            return true;
+        if (!$this->able)
+            return;
 
         $tasks = $this->cron->getTasks();
 
@@ -44,13 +54,4 @@ class Handle extends Command
         }
     }
 
-    private function initEnv()
-    {
-        if (strtoupper(PHP_OS ) !== 'LINUX') {
-            $this->output->writeln('[Warning]:Windows is not supported');
-            return false;
-        }
-
-        return true;
-    }
 }
