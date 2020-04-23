@@ -1,24 +1,24 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Administrator
- * Date: 2020/4/22 0022
- * Time: 9:32
- */
 
 return [
     'tasks' => [
         [
             'time' => '10,50 */3 * * *',
-            'command' => 'test'
-        ],
-        [
-            'time' => '22 */8 * * *',
-            'command' => 'queue'
+            'mode' => [
+                'command' => ['queue'],
+                'callback' => [
+                    ["app\admin\controller\JobTest:test1", ['huangweijie']]
+                ]
+            ]
         ],
         [
             'time' => '* * * * *',
-            'command' => 'queue'
+            'mode' => [
+                'command' => ['queue'],
+                'callback' => [
+                    ["app\admin\controller\JobTest:test1", ['huangweijie']]
+                ]
+            ]
         ],
     ]
 ];
