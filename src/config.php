@@ -7,7 +7,7 @@ return [
             'mode' => [
                 'command' => ['queue'],
                 'callback' => [
-                    ["app\admin\controller\JobTest:test1", ['huangweijie']]
+                    ["app\admin\controller\JobTest:test1", 'huangweijie,huangweijie2']
                 ]
             ]
         ],
@@ -16,7 +16,7 @@ return [
             'mode' => [
                 'command' => ['queue'],
                 'callback' => [
-                    ["app\admin\controller\JobTest:test1", ['huangweijie']]
+                    ["app\admin\controller\JobTest:test1", 'huangweijie']
                 ]
             ]
         ],

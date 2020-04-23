@@ -1,6 +1,8 @@
 <?php
 namespace huangweijie\cron;
 
+use think\App;
+
 abstract class Mode
 {
     protected $app;
@@ -8,14 +10,15 @@ abstract class Mode
 
     public function __construct()
     {
-        $this->think = $this->app->getRootPath() . 'think';
+
     }
 
     public function setApp(App $app)
     {
         $this->app = $app;
+        $this->think = $this->app->getRootPath() . 'think';
         return $this;
     }
 
-    abstract function handle($action = '');
+    abstract public function handle($action);
 }

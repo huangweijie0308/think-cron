@@ -1,6 +1,8 @@
 <?php
 namespace huangweijie;
 
+use InvalidArgumentException;
+use think\helper\Str;
 use think\Factory;
 use think\App;
 

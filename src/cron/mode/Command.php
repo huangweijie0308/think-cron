@@ -1,9 +1,7 @@
 <?php
 namespace huangweijie\cron\mode;
 
-use huangweijie\cron\Mode;
-
-class Command extends Mode
+class Command extends \huangweijie\cron\Mode
 {
     public function handle($action)
     {

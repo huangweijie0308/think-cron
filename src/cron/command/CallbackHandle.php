@@ -4,23 +4,31 @@ namespace huangweijie\cron\command;
 use think\console\Command;
 use think\console\Input;
 use think\console\Output;
-use think\console\input\Argument;
+use think\console\input\Option;
 
 class CallbackHandle extends Command
 {
     protected function configure()
     {
-        $this->setName('callback:handle')
-            ->addArgument('callback', Argument::OPTIONAL, 'callback', [])
+        $this->setName('crontab:callback')
+            ->addOption('class', null, Option::VALUE_REQUIRED, 'class')
+            ->addOption('action', null, Option::VALUE_REQUIRED, 'action')
+            ->addOption('argument', null, Option::VALUE_OPTIONAL, 'argument', [])
             ->setDescription('callback handle');
     }
 
     protected function execute(Input $input, Output $output)
     {
-        $callback = $input->getArgument('callback')? []: json_decode($callback, true);
-        if (empty($callback) || !is_callable($callback[0]))
+        $calss = $input->getOption('class');
+
+        $action = $input->getOption('action');
+
+        $argument = $input->getOption('argument');
+
+        if (!is_callable([$calss, $action]))
             return;
 
-        $this->app->invokeMethod($callback[0], $callback[1]);
+        $argument = empty($argument)? []: explode(',', $argument);
+        $this->app->invokeMethod([$calss, $action], $argument);
     }
 }
