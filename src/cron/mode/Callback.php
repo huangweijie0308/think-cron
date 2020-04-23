@@ -19,9 +19,9 @@ class Callback extends \huangweijie\cron\Mode
 
             $callback[0] = explode(':', $callback[0]);
 
-            $command = "--class={$callback[0][0]} --action={$callback[0][1]}";
+            $command = "--class='{$callback[0][0]}' --action='{$callback[0][1]}'";
             if (!empty($callback[1]))
-                $command .= " --argument={$callback[1]}";
+                $command .= " --argument='{$callback[1]}'";
 
             shell_exec("nohup php {$this->think} crontab:callback {$command} >/dev/null 2>&1 &");
         }
