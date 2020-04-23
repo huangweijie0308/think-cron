@@ -2,6 +2,7 @@
 namespace huangweijie;
 
 use think\Factory;
+use think\App;
 
 class Cron extends Factory
 {
@@ -11,11 +12,12 @@ class Cron extends Factory
     public function __construct(App $app)
     {
         parent::__construct($app);
+
         $tasks = $this->app->config->get('crontab.tasks', []);
         $this->tasks = $this->schedule($tasks);
     }
 
-    private function getTasks()
+    public function getTasks()
     {
         return $this->tasks;
     }

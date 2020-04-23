@@ -9,7 +9,7 @@ class Service extends \think\Service
 {
     public function register()
     {
-        $this->app->bind('cron', Cron::class);
+        $this->app->bind(Cron::class);
     }
 
     public function boot()

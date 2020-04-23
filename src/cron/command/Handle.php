@@ -8,7 +8,7 @@ use huangweijie\Cron;
 
 class Handle extends Command
 {
-    private $cron;
+    protected $cron;
 
     public function __construct(Cron $cron)
     {
@@ -23,11 +23,11 @@ class Handle extends Command
 
     protected function execute(Input $input, Output $output)
     {
-//        if (!$this->initEnv())
-//            return true;
+        if (!$this->initEnv())
+            return true;
 
         $tasks = $this->cron->getTasks();
-        print_r($tasks);die;
+
         foreach ($tasks as $task) {
             if (empty($task['mode']))
                 continue;

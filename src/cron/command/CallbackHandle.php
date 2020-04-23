@@ -4,6 +4,7 @@ namespace huangweijie\cron\command;
 use think\console\Command;
 use think\console\Input;
 use think\console\Output;
+use think\console\input\Argument;
 
 class CallbackHandle extends Command
 {
