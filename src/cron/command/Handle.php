@@ -39,19 +39,16 @@ class Handle extends Command
         $tasks = $this->cron->getTasks();
 
         foreach ($tasks as $task) {
-            if (empty($task['mode']))
+            if (empty($task['mode']) || !is_array($task['mode']))
                 continue;
 
-            if (is_array($task['mode'])) {
-                foreach ($task['mode'] as $modeName => $action) {
+            foreach ($task['mode'] as $modeName => $action) {
 
-                    if (is_numeric($modeName) || !in_array($modeName, ['command', 'callback']) || empty($action))
-                        continue;
+                if (is_numeric($modeName) || !in_array($modeName, ['command', 'callback']) || empty($action))
+                    continue;
 
-                    $this->cron->mode($modeName)->handle($action);
-                }
+                $this->cron->mode($modeName)->handle($action);
             }
         }
     }
-
 }
