@@ -6,9 +6,7 @@ class Command extends \huangweijie\cron\Mode
     public function handle($action)
     {
         // TODO: Implement handle() method.
-        if (is_string($action)) {
-            shell_exec("nohup php {$this->think} {$action} >/dev/null 2>&1 &");
-        }
+       is_string($action) && $action = [$action];
 
         if (is_array($action)) {
             foreach ($action as $commandLine) {
