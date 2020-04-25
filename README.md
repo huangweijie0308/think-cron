@@ -48,6 +48,6 @@ return [
 
 在系统的计划任务里添加
 ~~~
-* * * * * php /path/to/think crontab:run >> /dev/null 2>&1
+* * * * * php /path/to/think crontab:handle >> /dev/null 2>&1
 ~~~
 

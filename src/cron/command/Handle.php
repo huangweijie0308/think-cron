@@ -19,7 +19,7 @@ class Handle extends Command
 
     protected function configure()
     {
-        $this->setName('crontab:run')->setDescription('crontab run');
+        $this->setName('crontab:handle')->setDescription('crontab handle');
     }
 
     protected function initialize(Input $input, Output $output)
@@ -39,16 +39,19 @@ class Handle extends Command
         $tasks = $this->cron->getTasks();
 
         foreach ($tasks as $task) {
-            if (empty($task['mode']) || !is_array($task['mode']))
+            if (empty($task['mode']))
                 continue;
 
-            foreach ($task['mode'] as $modeName => $action) {
+            if (is_array($task['mode'])) {
+                foreach ($task['mode'] as $modeName => $action) {
 
-                if (is_numeric($modeName) || !in_array($modeName, ['command', 'callback']) || empty($action))
-                    continue;
+                    if (is_numeric($modeName) || !in_array($modeName, ['command', 'callback']) || empty($action))
+                        continue;
 
-                $this->cron->mode($modeName)->handle($action);
+                    $this->cron->mode($modeName)->handle($action);
+                }
             }
         }
     }
+
 }
