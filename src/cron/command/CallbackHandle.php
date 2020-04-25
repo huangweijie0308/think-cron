@@ -33,9 +33,7 @@ class CallbackHandle extends Command
             return;
 
         $calss = $input->getOption('class');
-
         $action = $input->getOption('action');
-
         $argument = $input->getOption('argument');
 
         if (empty($calss) || empty($action))
