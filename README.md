@@ -22,7 +22,7 @@ return [
         [
             'time' => '10,50 */3 * * *',
             'mode' => [
-                'command' => ['test', 'queue-manage:run'],
+                'command' => ['test', 'think-queue-manage:handle'],
                 'callback' => [
                     ["app\admin\controller\JobTest:test1", 'huangweijie,huangweijie2']
                 ]
@@ -31,7 +31,7 @@ return [
         [
             'time' => '* * * * *',
             'mode' => [
-                'command' => ['queue-manage:run']
+                'command' => ['think-queue-manage:handle']
             ]
         ],
         [
