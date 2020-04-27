@@ -55,7 +55,7 @@ class Cron extends Factory
      */
     public function getDefaultDriver()
     {
-        return $this->app->config->get('callback');
+        return 'callback';
     }
 
     /**
