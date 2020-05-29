@@ -14,7 +14,7 @@ composer require huangweijie/think-cron
 配置
 
 ```
-项目根目录/vendor/huangweijie/think-cron/src/config.php
+项目根目录/config/crontab.php
 <?php
 
 return [
