@@ -25,10 +25,10 @@ return [
                 'command' => ['test', 'think-queue-manage:handle'],
                 'callback' => [
                     ["app\admin\controller\JobTest:test1"],
-                    [['app\admin\controller\JobTest','test1']],
+                    [['app\admin\controller\JobTest','test1']], // 需v2.0.0(包括)以上版本
                     ["app\admin\controller\JobTest:test1", 'huangweijie,huangweijie2'],
-                    ["app\admin\controller\JobTest:test1", ['huangweijie,huangweijie2']],
-                    [['app\admin\controller\JobTest','test1'], ['huangweijie,huangweijie2']]
+                    ["app\admin\controller\JobTest:test1", ['huangweijie,huangweijie2']], // 需v2.0.0(包括)以上版本
+                    [['app\admin\controller\JobTest','test1'], ['huangweijie,huangweijie2']] // 需v2.0.0(包括)以上版本
                 ]
             ]
         ],
