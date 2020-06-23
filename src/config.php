@@ -11,7 +11,11 @@ return [
             'mode' => [
                 'command' => ['test', 'think-queue-manage:handle'],
                 'callback' => [
-                    ["app\admin\controller\JobTest:test1", 'huangweijie,huangweijie2']
+                    ["app\admin\controller\JobTest:test1"],
+                    [['app\admin\controller\JobTest','test1']],
+                    ["app\admin\controller\JobTest:test1", 'huangweijie,huangweijie2'],
+                    ["app\admin\controller\JobTest:test1", ['huangweijie,huangweijie2']],
+                    [['app\admin\controller\JobTest','test1'], ['huangweijie,huangweijie2']]
                 ]
             ]
         ],

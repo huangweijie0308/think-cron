@@ -29,8 +29,9 @@ class Handle extends Command
 
     protected function initialize(Input $input, Output $output)
     {
-        if (strtoupper(PHP_OS ) == 'LINUX')
+        if (strtoupper(PHP_OS ) == 'LINUX') {
             return;
+        }
 
         $this->able = false;
         $this->output->writeln('[Warning]:Windows is not supported');
@@ -38,19 +39,22 @@ class Handle extends Command
 
     protected function execute(Input $input, Output $output)
     {
-        if (!$this->able)
+        if (!$this->able) {
             return;
+        }
 
         $tasks = $this->cron->getTasks();
 
         foreach ($tasks as $task) {
-            if (empty($task['mode']) || !is_array($task['mode']))
+            if (empty($task['mode']) || !is_array($task['mode'])) {
                 continue;
+            }
 
             foreach ($task['mode'] as $modeName => $action) {
 
-                if (is_numeric($modeName) || !in_array($modeName, ['command', 'callback']) || empty($action))
+                if (is_numeric($modeName) || !in_array($modeName, ['command', 'callback']) || empty($action)) {
                     continue;
+                }
 
                 $this->cron->mode($modeName)->handle($action);
             }

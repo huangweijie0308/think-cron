@@ -26,29 +26,24 @@ class CallbackHandle extends Command
 
     protected function initialize(Input $input, Output $output)
     {
-        if (strtoupper(PHP_OS ) == 'LINUX')
+        if (strtoupper(PHP_OS ) == 'LINUX') {
             return;
+        }
 
         $this->able = false;
     }
 
     protected function execute(Input $input, Output $output)
     {
-        if (!$this->able)
-            return;
 
         $calss = $input->getOption('class');
+
         $action = $input->getOption('action');
+
         $argument = $input->getOption('argument');
 
-        if (empty($calss) || empty($action))
+        if (!$this->able || empty($calss) || empty($action) || !is_callable([$calss, $action])) {
             return;
-
-        if (!is_callable([$calss, $action])) {
-
-            $this->app->bind($calss);
-            if (!is_callable([$calss, $action]))
-                return;
         }
 
         $argument = empty($argument)? []: explode(',', $argument);

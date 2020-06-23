@@ -10,23 +10,47 @@ class Callback extends \huangweijie\cron\Mode
 {
     public function handle($action = '')
     {
-        // TODO: Implement handle() method.
-        if (!is_array($action))
+
+        if (!is_array($action)) {
             return;
+        }
 
         foreach ($action as $item) {
-            if (empty($item) || !is_array($item))
+
+            $callback = [];
+            $parameter = '';
+
+            if (empty($item) || !is_array($item) || count($item) > 2) {
                 continue;
+            }
 
-            $callback = array_values($item);
-            if (!strpos($callback[0], ':') || (isset($callback[1]) && !is_string($callback[1])))
+            if (count($item) == 1) {
+                $callback = reset($item);
+            } else {
+                [$callback, $parameter] = array_values($item);
+            }
+
+            if (is_string($callback)) {
+                if (!strpos($callback, ':')) {
+                    continue;
+                }
+
+                $callback = explode(':', $callback);
+            } else if (!is_array($callback)) {
                 continue;
+            }
 
-            $callback[0] = explode(':', $callback[0]);
+            [$class, $action] = $callback;
 
-            $command = "--class='{$callback[0][0]}' --action='{$callback[0][1]}'";
-            if (!empty($callback[1]))
-                $command .= " --argument='{$callback[1]}'";
+            $command = "--class='{$class}' --action='{$action}'";
+
+            if (!empty($parameter)) {
+                if (is_array($parameter)) {
+                    $parameter = join(',', $parameter);
+                }
+
+                $command .= " --argument='{$parameter}'";
+            }
 
             shell_exec("nohup php {$this->think} crontab:callback {$command} >/dev/null 2>&1 &");
         }
