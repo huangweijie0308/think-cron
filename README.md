@@ -10,6 +10,7 @@ composer require huangweijie/think-cron
 ```
 
 #### 使用说明
+请参考CronExpression表达式
 
 配置
 
@@ -20,26 +21,26 @@ composer require huangweijie/think-cron
 return [
     'tasks' => [
         [
-            'time' => '10,50 */3 * * *',
+            'time' => '0 10,50 */3 * * *',
             'mode' => [
                 'command' => ['test', 'think-queue-manage:handle'],
                 'callback' => [
                     ["app\admin\controller\JobTest:test1"],
-                    [['app\admin\controller\JobTest','test1']], // 需v2.0.0(包括)以上版本
+                    [['app\admin\controller\JobTest','test1']], 
                     ["app\admin\controller\JobTest:test1", 'huangweijie,huangweijie2'],
-                    ["app\admin\controller\JobTest:test1", ['huangweijie,huangweijie2']], // 需v2.0.0(包括)以上版本
-                    [['app\admin\controller\JobTest','test1'], ['huangweijie,huangweijie2']] // 需v2.0.0(包括)以上版本
+                    ["app\admin\controller\JobTest:test1", ['huangweijie,huangweijie2']], 
+                    [['app\admin\controller\JobTest','test1'], ['huangweijie,huangweijie2']] 
                 ]
             ]
         ],
         [
-            'time' => '* * * * *',
+            'time' => '* * * * * *',
             'mode' => [
                 'command' => ['think-queue-manage:handle']
             ]
         ],
         [
-            'time' => '2,9,36 */2 * * *',
+            'time' => '0 2,9,36 */2 * * *',
             'mode' => [
                 'callback' => [
                     ["app\admin\controller\JobTest:test1", 'huangweijie']

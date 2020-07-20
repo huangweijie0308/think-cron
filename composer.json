@@ -10,7 +10,8 @@
     "minimum-stability": "dev",
     "require": {
         "topthink/framework": "^6.0",
-        "topthink/think-factory": "^1.0.0"
+        "topthink/think-factory": "^1.0.0",
+        "xavier/xcron-expression": "^0.11"
     },
     "autoload": {
         "psr-4": {

@@ -7,6 +7,7 @@
 namespace huangweijie;
 
 use InvalidArgumentException;
+use XCron\CronExpression;
 use think\helper\Str;
 use think\Factory;
 use think\App;
@@ -70,53 +71,19 @@ class Cron extends Factory
      */
     public function schedule(Array $tasks)
     {
-        $timeList = $taskList = [];
-        $nowTime = time();
-        $lastTime = $nowTime - $nowTime % 60 - 60;
-
-        while ((int)($nowTime - $lastTime) > 59) {
-            $lastTime += 60;
-            $timeList[] = array(
-                'nowTime' => $lastTime,
-                'nowNode' => explode(' ', date('i H d m w', $lastTime))
-            );
-        }
-
-        if (!$timeList || empty($tasks) || !is_array($tasks))
-            return $taskList;
-
-        foreach ($tasks as &$task) {
-            $taskTimeNodes = preg_split('@\s+@', trim($task['time']));
-            foreach ($timeList as &$timeBox) {
-                foreach ($taskTimeNodes as $ki => &$vi) {
-
-                    $index = &$timeBox['nowNode'][$ki];
-                    preg_match_all('@(\d+|\*)(?:-(\d+))?(?:/(\d+))?(,|$)@', $vi, $list, PREG_SET_ORDER);
-
-                    foreach ($list as &$vl) {
-                        if (!$vl[2]) {
-                            $temp = $index == $vl[1] || $vl[1] === '*';
-                        } else if ((int)$vl[1] > (int)$vl[2]) {
-                            $temp = (int)$index >= (int)$vl[1] || (int)$index <= (int)$vl[2];
-                        } else {
-                            $temp = (int)$index >= (int)$vl[1] && (int)$index <= (int)$vl[2];
-                        }
-                        if ($temp && (!$vl[3] || (int)$index >= (int)$vl[1] && ((int)$index - (int)$vl[1]) % (int)$vl[3] === 0)) {
-                            continue 2;
-                        }
-                    }
-
-                    continue 2;
+        $taskList = [];
+        foreach ($tasks as $task) {
+            try {
+                $cron = CronExpression::factory($task['time']);
+                if ($cron->isDue()) {
+                    $taskList[] = $task;
                 }
-
-                if (!empty($temp) && (int)$temp < (int)$timeBox['nowTime']) {
-
-                    $task['time'] = $timeBox['nowTime'];
-                    $taskList[] = &$task;
-                }
+            } catch (\Exception $e) {
+                echo $e->getMessage();
+                throw new \Exception("定时器异常");
             }
-            unset($task);
         }
+
         return $taskList;
     }
 }

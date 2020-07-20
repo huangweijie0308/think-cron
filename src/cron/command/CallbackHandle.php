@@ -20,7 +20,7 @@ class CallbackHandle extends Command
         $this->setName('crontab:callback')
             ->addOption('class', null, Option::VALUE_REQUIRED, 'class')
             ->addOption('action', null, Option::VALUE_REQUIRED, 'action')
-            ->addOption('argument', null, Option::VALUE_OPTIONAL, 'argument', [])
+            ->addOption('argument', null, Option::VALUE_OPTIONAL, 'argument')
             ->setDescription('callback handle');
     }
 
