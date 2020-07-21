@@ -55,4 +55,5 @@ return [
 ~~~
 * * * * * php /path/to/think crontab:handle >> /dev/null 2>&1
 ~~~
+注意：linux系统的crontab 不支持秒级定时,CronExpression表达式的秒部分填0
 
