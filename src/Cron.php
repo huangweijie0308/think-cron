@@ -78,9 +78,7 @@ class Cron extends Factory
                 if ($cron->isDue()) {
                     $taskList[] = $task;
                 }
-            } catch (\Exception $e) {
-                echo $e->getMessage();
-                throw new \Exception("定时器异常");
+            } catch (\Throwable $e) {
             }
         }
 
